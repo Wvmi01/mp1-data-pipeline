@@ -29,3 +29,19 @@ def load_yaml(filepath):
 
     logger.info(f"Loaded YAML file: {filepath}")
     return data
+
+def load_data(filepath):
+    """Load file based on its extension."""
+    path = Path(filepath)
+    extension = path.suffix.lower()
+    if extension == ".csv":
+        return load_csv(path)
+    elif extension == ".json":
+        return load_json(path)
+    elif extension == ".yaml":
+        return load_yaml(path)
+    else:
+        logger.error(f"Unsupported file format: {extension}")
+        raise ValueError(f"Unsupported file format: {extension}")
+    
+
