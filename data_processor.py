@@ -62,8 +62,27 @@ def remove_outliers(df, columns, method, threshold):
             df = df[(df[column] >= lower) & (df[column] <= upper)]
 
             logger.debug(
-                f"{column}: method={method}, threshold={threshold}, "
-                f"removed{before - len(df)} rows"
+                f"{column}: method = {method}, threshold = {threshold}, "
+                f"removed = {before - len(df)} rows"
+            )
+
+        elif method == "zscore":
+            before = len(df)
+            mean = df[column].mean()
+            std = df[column].std()
+
+            if std == 0:
+                logger.debug(f"{column}: method = {method}, threshold = {threshold}, "
+                    "removed = 0 rows: standard deviation is zero"
+                )
+                continue
+
+            z_scores = (df[column] - mean) / std
+            df = df[z_scores.abs() <= threshold]
+
+            logger.debug(
+                f"{column}: method = {method}, threshold = {threshold}, "
+                f"removed = {before - len(df)} rows"
             )
 
     return df

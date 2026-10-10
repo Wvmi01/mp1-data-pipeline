@@ -11,3 +11,4 @@ processing:
       - Score
     method: "iqr"
     threshold: 1.5
+    method: "percentile"
