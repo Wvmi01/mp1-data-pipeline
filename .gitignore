@@ -10,4 +10,7 @@ __pycache__/
 Thumbs.db
 # Virtual environment
 venv/
+# Generated output
+output/
+
 
